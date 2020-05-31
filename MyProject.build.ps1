@@ -52,7 +52,7 @@ task testBuild {
     $Public | Get-Content | Add-Content "$env:BuildOutput/$env:ProjectName.psm1" -Force
     $PublicFunctions = $Public.BaseName
 
-    Copy-Item -Path $env:PSModuleManifest -Destination $env:BuildOutput -Force
+    Copy-Item -Path $env:PSModuleManifest -Destination $env:BuildOutput -Force -Verbose
 
     Set-ModuleFunction -Name "$env:BuildOutput/$env:ProjectName.psd1" -FunctionsToExport $PublicFunctions
 }
