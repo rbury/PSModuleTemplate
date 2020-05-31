@@ -78,9 +78,9 @@ jobs:
         shell: pwsh
 
       # List env variables
-      #- name: List Evnironment
-      #  run: Get-item 'env:*'
-      #  shell: pwsh
+      - name: List Evnironment
+        run: Get-item 'env:*'
+        shell: pwsh
 
       # Run Build Task
       - name: Build Project
