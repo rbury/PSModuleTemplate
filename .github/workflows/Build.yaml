@@ -2,7 +2,7 @@ name: CICD
 
 env:
   PROJECT_NAME: TopDeskPSClient
-  GITHUB_TOKEN: ${{ secrets.GWFTOKEN }}
+  GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
   RequiredModules: "InvokeBuild;5.6.0,Pester;5.0.1,BuildHelpers;2.0.11"
 
 on:
@@ -71,7 +71,7 @@ jobs:
         #uses: craig-day/compute-tag@08233c8e763aa357c7930adf553f5b2cd8d29d1b
         uses: ./.github/actions/compute-tag
         with:
-          github_token: ${{ secrets.GWFTOKEN }}
+          github_token: ${{ secrets.MY_TOKEN }}
           version_scheme: semantic # continuous, semantic
           version_type: prerelease # major, minor, patch, prerelease, premajor
           prerelease_suffix: beta # the suffix added to a prerelease tag, if none already exists.
@@ -98,7 +98,7 @@ jobs:
           rootPath: BuildOutput
           settingsPath: pssa_settings.psd1
           sendComment: true
-          repoToken: ${{ secrets.GWFTOKEN }}
+          repoToken: ${{ secrets.MY_TOKEN }}
           failOnErrors: true
           failOnWarnings: true
           failOnInfos: true
@@ -211,7 +211,7 @@ jobs:
         #uses: craig-day/compute-tag@08233c8e763aa357c7930adf553f5b2cd8d29d1b
         uses: ./.github/actions/compute-tag
         with:
-          github_token: ${{ secrets.GWFTOKEN }}
+          github_token: ${{ secrets.MY_TOKEN }}
           version_scheme: semantic
 
       # Create a new GitHub release
@@ -219,7 +219,7 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GWFTOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
         with:
           tag_name: ${{ steps.compute_tag.outputs.previous_tag }}
           release_name: ${{ env.ProjectName }} ${{ steps.compute_tag.outputs.previous_tag }}
@@ -233,7 +233,7 @@ jobs:
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GWFTOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           asset_path: ${{ env.BuildOutput }}/${{ env.ProjectName }}.zip
